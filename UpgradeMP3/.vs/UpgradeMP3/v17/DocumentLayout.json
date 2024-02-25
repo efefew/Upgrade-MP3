@@ -1,0 +1,41 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "W:\\Users\\prodi\\Documents\\GitHub\\Upgrade-MP3\\UpgradeMP3\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{1F58C426-ECAE-48FD-A299-D70C7178BCD5}|UpgradeMP3.csproj|w:\\users\\prodi\\documents\\github\\upgrade-mp3\\upgrademp3\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1F58C426-ECAE-48FD-A299-D70C7178BCD5}|UpgradeMP3.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 305,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "W:\\Users\\prodi\\Documents\\GitHub\\Upgrade-MP3\\UpgradeMP3\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "W:\\Users\\prodi\\Documents\\GitHub\\Upgrade-MP3\\UpgradeMP3\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAUAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-24T13:36:59.015Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

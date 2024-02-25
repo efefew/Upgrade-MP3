@@ -1,0 +1,12 @@
+W:\Users\prodi\Documents\GitHub\Upgrade-MP3\UpgradeMP3\bin\Debug\UpgradeMP3.exe.config
+W:\Users\prodi\Documents\GitHub\Upgrade-MP3\UpgradeMP3\bin\Debug\UpgradeMP3.exe
+W:\Users\prodi\Documents\GitHub\Upgrade-MP3\UpgradeMP3\bin\Debug\UpgradeMP3.pdb
+W:\Users\prodi\Documents\GitHub\Upgrade-MP3\UpgradeMP3\bin\Debug\taglib-sharp.dll
+W:\Users\prodi\Documents\GitHub\Upgrade-MP3\UpgradeMP3\obj\Debug\UpgradeMP3.csproj.AssemblyReference.cache
+W:\Users\prodi\Documents\GitHub\Upgrade-MP3\UpgradeMP3\obj\Debug\UpgradeMP3.csproj.CoreCompileInputs.cache
+W:\Users\prodi\Documents\GitHub\Upgrade-MP3\UpgradeMP3\obj\Debug\UpgradeMP3.exe
+W:\Users\prodi\Documents\GitHub\Upgrade-MP3\UpgradeMP3\obj\Debug\UpgradeMP3.pdb
+W:\Users\prodi\Documents\GitHub\Upgrade-MP3\UpgradeMP3\obj\Debug\UpgradeMP3.csproj.Up2Date
+W:\Users\prodi\Documents\GitHub\Upgrade-MP3\UpgradeMP3\bin\Debug\HtmlAgilityPack.dll
+W:\Users\prodi\Documents\GitHub\Upgrade-MP3\UpgradeMP3\bin\Debug\HtmlAgilityPack.pdb
+W:\Users\prodi\Documents\GitHub\Upgrade-MP3\UpgradeMP3\bin\Debug\HtmlAgilityPack.xml
