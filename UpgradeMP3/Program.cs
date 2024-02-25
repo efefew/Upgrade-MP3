@@ -82,11 +82,10 @@ namespace UpgradeMP3
                 TextEncoding = TagLib.StringType.UTF16
             };
             file.Tag.Pictures = new TagLib.IPicture[] { cover };
-            Console.WriteLine($"url = {url}, file.Name = {file.Name}");
         }
         public void SetImagesMP3()
         {
-            count = 0;
+            count = 1;
             Console.ForegroundColor = ConsoleColor.White;
             string pathDirectory = PATH;
             if (Directory.Exists(pathDirectory))
