@@ -16,7 +16,7 @@ namespace UpgradeMP3
         {
             Mp3 mp3 = new Mp3();
             //mp3.ClearTagAll();
-            mp3.SetImagesMP3();
+            mp3.SetAllMP3();
             Console.WriteLine($"готово");
             _ = Console.ReadLine();
         }
@@ -67,7 +67,7 @@ namespace UpgradeMP3
                 return;
 
             foreach (DirectoryInfo subDirectory in directory.GetDirectories())
-                SetImagesMP3(subDirectory);
+                SetAllMP3(subDirectory);
         }
 
         private void SetAlbumArt(string url, TagLib.File file)
@@ -110,7 +110,7 @@ namespace UpgradeMP3
                 return;
 
             foreach (DirectoryInfo subDirectory in directory.GetDirectories())
-                SetImagesMP3(subDirectory);
+                SetAllMP3(subDirectory);
         }
         public void ClearTag(string path)
         {
@@ -151,7 +151,7 @@ namespace UpgradeMP3
             file.Save();
         }
 
-        public void SetImagesMP3()
+        public void SetAllMP3()
         {
             CountFiles();
             countDone = 0;
@@ -159,10 +159,10 @@ namespace UpgradeMP3
             Console.ForegroundColor = ConsoleColor.White;
             string pathDirectory = PATH;
             if (Directory.Exists(pathDirectory))
-                SetImagesMP3(new DirectoryInfo(pathDirectory));
+                SetAllMP3(new DirectoryInfo(pathDirectory));
         }
 
-        public void SetImagesMP3(DirectoryInfo directory)
+        public void SetAllMP3(DirectoryInfo directory)
         {
             if (directory.GetFiles().Length == 0)
                 return;
@@ -170,29 +170,36 @@ namespace UpgradeMP3
             foreach (FileInfo file in directory.GetFiles())
             {
                 if (file.Name.EndsWith(".mp3"))
-                    SetImageMP3(file.Name, directory.FullName);
+                {
+                    SetMP3(file.Name, directory.FullName);
+                }
             }
 
             if (directory.GetDirectories().Length == 0)
                 return;
 
             foreach (DirectoryInfo subDirectory in directory.GetDirectories())
-                SetImagesMP3(subDirectory);
+                SetAllMP3(subDirectory);
         }
-
-        public void SetImageMP3(string nameMP3, string path)
+        public void SetMP3(string nameMP3, string path)
         {
-            #region инициализация
+            TagLib.File file = TagLib.File.Create(path + nameMP3);
+            TagLib.Id3v2.Tag.DefaultVersion = 3;
+            TagLib.Id3v2.Tag.ForceDefaultVersion = true;
+            //file.Tag.Lyrics = "";
 
+            SetImageMP3(nameMP3, file);
+        }
+        public void SetImageMP3(string nameMP3, TagLib.File file)
+        {
             string searchQuery = nameMP3 + " обложка"; // ваш поисковый запрос
-            string url = $"https://www.bing.com/images/search?q={searchQuery}";// URL для поискового запроса
+            string url = $"https://www.bing.com/images/search?q={searchQuery}";
             HtmlWeb web = new HtmlWeb();
             HtmlDocument doc;
             HtmlNodeCollection imageNodes = null;
             for (int id = 0; id < COUNT_TRY; id++)
             {
                 doc = web.Load(url);
-                // Находим все ссылки на страницы с качесвенным фото на странице
                 imageNodes = doc.DocumentNode.SelectNodes("//a[contains(@class, 'iusc')]");
                 if (imageNodes != null)
                     break;
@@ -201,38 +208,40 @@ namespace UpgradeMP3
             if (imageNodes == null)
                 return;
 
-            TagLib.File file = TagLib.File.Create(path + nameMP3);
-            TagLib.Id3v2.Tag.DefaultVersion = 3;
-            TagLib.Id3v2.Tag.ForceDefaultVersion = true;
-            string previewImageUrl, imageUrl;
-            HtmlDocument docFindImage;
-            HtmlNode findImageNode;
-
-            #endregion инициализация
-
             // Проходим по всем найденным ссылкам на страницы с качесвенным фото
             foreach (HtmlNode img in imageNodes)
             {
-                previewImageUrl = img.GetAttributeValue("href", "");
-                if (string.IsNullOrEmpty(previewImageUrl) || !previewImageUrl.StartsWith(@"/images/search?"))
-                    continue;
-                previewImageUrl = @"https://www.bing.com" + previewImageUrl.Replace(';', '&') + '\n';
-                docFindImage = new HtmlWeb().Load(previewImageUrl);
-                findImageNode = docFindImage.DocumentNode.SelectSingleNode("//img");
-                if (findImageNode == null)
-                    continue;
-                imageUrl = findImageNode.GetAttributeValue("src", "").Replace(';', '&');
-                if (string.IsNullOrEmpty(imageUrl))
-                    continue;
-                try
-                {
-                    SetAlbumArt(imageUrl, file);
-                    file.Save();
-                    countDone++;
-                    Status();
-                    return;
-                }
-                catch { }
+                if (FindArt(file, img.GetAttributeValue("href", "")))
+                    break;
+            }
+        }
+
+        private bool FindArt(TagLib.File file, string previewImageUrl)
+        {
+            string imageUrl;
+            HtmlDocument docFindImage;
+            HtmlNode findImageNode;
+            if (string.IsNullOrEmpty(previewImageUrl) || !previewImageUrl.StartsWith(@"/images/search?"))
+                return false;
+            previewImageUrl = @"https://www.bing.com" + previewImageUrl.Replace(';', '&') + '\n';
+            docFindImage = new HtmlWeb().Load(previewImageUrl);
+            findImageNode = docFindImage.DocumentNode.SelectSingleNode("//img");
+            if (findImageNode == null)
+                return false;
+            imageUrl = findImageNode.GetAttributeValue("src", "").Replace(';', '&');
+            if (string.IsNullOrEmpty(imageUrl))
+                return false;
+            try
+            {
+                SetAlbumArt(imageUrl, file);
+                file.Save();
+                countDone++;
+                Status();
+                return true;
+            }
+            catch
+            {
+                return false;
             }
         }
 
